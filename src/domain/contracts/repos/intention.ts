@@ -10,3 +10,7 @@ export namespace CreateIntention {
     text: string;
   };
 }
+
+export interface FetchIntention {
+  fetch(): Promise<any[]>;
+}
