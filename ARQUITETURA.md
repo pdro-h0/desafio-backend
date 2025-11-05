@@ -6,3 +6,12 @@
 <p align="center">
   <img alt="Teste Técnico" src=".github/arch-diagram.png" width="100%">
 </p>
+
+---
+
+## Modelo de Dados
+<p align="center">
+  <img alt="Teste Técnico" src=".github/model.drawio.png" width="100%">
+</p>
+
+
