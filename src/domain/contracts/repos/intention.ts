@@ -14,3 +14,22 @@ export namespace CreateIntention {
 export interface FetchIntention {
   fetch(): Promise<any[]>;
 }
+
+export interface GetIntention {
+  getById(input: GetIntention.Input): Promise<any | null>;
+}
+export namespace GetIntention {
+  export type Input = {
+    id: number;
+  };
+}
+
+export interface ProcessIntention {
+  process(input: ProcessIntention.Input): Promise<any>;
+}
+export namespace ProcessIntention {
+  export type Input = {
+    intention: any;
+    status: string;
+  };
+}
