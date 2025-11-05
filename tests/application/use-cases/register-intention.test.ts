@@ -1,22 +1,5 @@
-class RegisterIntentionUseCase {
-  constructor(private readonly intentionRepo: CreateIntention) {}
-  async execute(input: CreateIntention.Input): Promise<void> {
-    await this.intentionRepo.create(input);
-  }
-}
-
-interface CreateIntention {
-  create(input: CreateIntention.Input): Promise<void>;
-}
-
-namespace CreateIntention {
-  export type Input = {
-    name: string;
-    email: string;
-    company: string;
-    text: string;
-  };
-}
+import { RegisterIntentionUseCase } from "@/application/use-cases/register-intention";
+import { CreateIntention } from "@/domain/contracts/repos";
 
 describe("REGISTER INTENTION", () => {
   let input: CreateIntention.Input;
