@@ -25,3 +25,17 @@ model IntentionRequest {
 
   @@map("intention_requests")
 }
+
+model Member {
+  id           String      @id @default(uuid())
+  email        String   @unique
+  name         String
+  password     String
+  role         String   @default("MEMBER")
+  memberThanks Int      @default(0) @map("member_thanks")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("members")
+}

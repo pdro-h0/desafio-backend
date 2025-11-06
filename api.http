@@ -17,7 +17,17 @@ PUT http://{{baseURL}}/admin/applications/status
 content-type: application/json
 
 {
-  "id": 1,
+  "id": 10,
   "status": "rejected"
 }
+###
 
+POST http://{{baseURL}}/members
+Content-Type: application/json
+
+{
+  "name": "João Silva",
+  "email": "joao.silva@exemplo.com.br",
+  "password": "1234567"
+}
+###
