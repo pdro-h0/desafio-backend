@@ -10,7 +10,7 @@ describe("REGISTER INTENTION", () => {
     input = {
       name: "any_name",
       email: "any_email@example.com",
-      company: "any_company_name",
+      companyName: "any_company_name",
       text: "any_text",
     };
     intentionRepo = {
@@ -27,7 +27,7 @@ describe("REGISTER INTENTION", () => {
     expect(intentionRepo.create).toHaveBeenCalledWith({
       name: "any_name",
       email: "any_email@example.com",
-      company: "any_company_name",
+      companyName: "any_company_name",
       text: "any_text",
     });
     expect(intentionRepo.create).toHaveBeenCalledTimes(1);
