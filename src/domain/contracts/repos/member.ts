@@ -20,3 +20,16 @@ export namespace GetMember {
     email: string;
   };
 }
+
+export interface AuthenticateMember {
+  authenticate(
+    input: AuthenticateMember.Input,
+  ): Promise<AuthenticateMember.Output>;
+}
+export namespace AuthenticateMember {
+  export type Input = {
+    email: string;
+    password: string;
+  };
+  export type Output = { member: Member };
+}
