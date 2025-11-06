@@ -1,5 +1,6 @@
 import { HashPassword } from "@/domain/contracts/gateways";
 import { CreateMember, GetMember } from "@/domain/contracts/repos";
+import { UserAlreadyExists } from "@/domain/errors";
 
 export class RegisterMemberUseCase {
   constructor(
@@ -10,7 +11,7 @@ export class RegisterMemberUseCase {
     const userWithSameEmail = await this.memberRepo.getByEmail({
       email: input.email,
     });
-    if (userWithSameEmail) throw new Error("User already exists");
+    if (userWithSameEmail) throw new UserAlreadyExists();
     const passwordHash = await this.passwordHasher.hash({
       password: input.password,
     });

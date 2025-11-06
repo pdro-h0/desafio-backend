@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
-import { IntentioNotFound } from "@/domain/errors";
+import { IntentioNotFound, UserAlreadyExists } from "@/domain/errors";
 
 const errorMap = {
   [IntentioNotFound.name]: 404,
+  [UserAlreadyExists.name]: 409,
 };
 
 export const errorHandler = (
