@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  authenticateMember,
   fetchIntention,
   processIntention,
   registerIntention,
@@ -17,3 +18,4 @@ router.put("/admin/applications/status", processIntention);
 
 //Members
 router.post("/members", registerMember);
+router.post("/sessions", authenticateMember);

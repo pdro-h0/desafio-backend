@@ -31,3 +31,14 @@ Content-Type: application/json
   "password": "1234567"
 }
 ###
+
+# @name loginMember
+POST http://{{baseURL}}/sessions
+content-type: application/json
+
+{
+  "email": "joao.silva@exemplo.com.br",
+  "password": "1234567"
+}
+###
+@tokenMember = {{loginMember.response.body.token}}
