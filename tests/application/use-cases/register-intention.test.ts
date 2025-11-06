@@ -1,4 +1,4 @@
-import { RegisterIntentionUseCase } from "@/application/use-cases/register-intention";
+import { RegisterIntentionUseCase } from "@/application/use-cases";
 import { CreateIntention } from "@/domain/contracts/repos";
 
 describe("REGISTER INTENTION", () => {
