@@ -76,13 +76,13 @@ Este endpoint é usado pelo formulário público para submeter novas intenções
 }
 ```
 
-- Response (Status 204: No Content)
+- Response (Status 201: Created)
 
 ### 2. Gestão de Intenção (Admin)
 
 Este endpoint permite que um administrador atualize o status de uma intenção de participação.
 
-    Endpoint: /admin/applications/:id/status
+    Endpoint: /admin/applications/status
 
     Método: PUT
 

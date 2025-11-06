@@ -1,5 +1,6 @@
 import nodemailer, { Transporter } from "nodemailer";
 import { SendEmail } from "@/domain/contracts/gateways";
+import { env } from "@/env";
 import { getMailClient } from "@/lib/mailer";
 
 export class NodeMailerHandler implements SendEmail {
@@ -41,7 +42,8 @@ export class NodeMailerHandler implements SendEmail {
       </p>
       </div>`.trim(),
     });
-    await console.log(nodemailer.getTestMessageUrl(message));
+    if (env.NODE_ENV !== "test")
+      console.log(nodemailer.getTestMessageUrl(message));
   }
 
   private async generateRejectedEmail(
@@ -59,6 +61,7 @@ export class NodeMailerHandler implements SendEmail {
       </p>
       </div>`.trim(),
     });
-    await console.log(nodemailer.getTestMessageUrl(message));
+    if (env.NODE_ENV !== "test")
+      console.log(nodemailer.getTestMessageUrl(message));
   }
 }

@@ -1,0 +1,23 @@
+@baseURL = localhost:3333
+POST http://{{baseURL}}/applications
+content-type: application/json
+
+{
+  "name": "João Silva",
+  "email": "joao.silva@exemplo.com.br",
+  "companyName": "Tech Solutions S.A.",
+  "text": "Quero expandir minha rede de contatos e gerar novas oportunidades de negócio na área de TI."
+}
+###
+
+GET http://{{baseURL}}/admin/applications
+###
+
+PUT http://{{baseURL}}/admin/applications/status
+content-type: application/json
+
+{
+  "id": 1,
+  "status": "rejected"
+}
+

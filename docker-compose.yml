@@ -1,0 +1,10 @@
+services:
+  db:
+    image: bitnami/postgresql:latest
+    container_name: desafio-dev-fullstack
+    environment:
+      - POSTGRES_USERNAME=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DATABASE=desafio
+    ports:
+      - "5432:5432"
