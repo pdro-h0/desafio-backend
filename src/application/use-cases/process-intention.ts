@@ -1,5 +1,6 @@
 import { GenerateToken, SendEmail } from "@/domain/contracts/gateways";
 import { GetIntention, ProcessIntention } from "@/domain/contracts/repos";
+import { IntentioNotFound } from "@/domain/errors";
 
 export class ProcessIntentionUseCase {
   constructor(
@@ -10,7 +11,7 @@ export class ProcessIntentionUseCase {
 
   async execute(id: number, status: string) {
     const intention = await this.intentionRepo.getById({ id });
-    if (!intention) throw new Error("Intention not found");
+    if (!intention) throw new IntentioNotFound();
     await this.intentionRepo.process({ intention, status });
     if (status !== "approved") {
       await this.emailSender.send({
