@@ -16,7 +16,7 @@ describe("AUTHENTICATE", () => {
     memberRepo = {
       authenticate: jest.fn(),
       getByEmail: jest.fn().mockResolvedValue({
-        id: 1,
+        id: "any_id",
         name: "any_name",
         email: "any_email@example.com",
         password: "any_password_hash",
@@ -57,7 +57,7 @@ describe("AUTHENTICATE", () => {
     const result = await sut.execute(input);
     expect(result).toEqual({
       member: {
-        id: 1,
+        id: "any_id",
         name: "any_name",
         email: "any_email@example.com",
         password: "any_password_hash",

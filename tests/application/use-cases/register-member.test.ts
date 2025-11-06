@@ -55,7 +55,7 @@ describe("REGISTER MEMBER", () => {
 
   it("should throw if GetMember returns a member", async () => {
     memberRepo.getByEmail.mockResolvedValueOnce({
-      id: 1,
+      id: "any_id",
       name: "any_name",
       email: "any_email@example.com",
       password: "any_password_hash",
