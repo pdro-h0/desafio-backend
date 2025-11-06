@@ -5,7 +5,7 @@ import { AuthenticateMember, GetMember } from "@/domain/contracts/repos";
 describe("AUTHENTICATE", () => {
   let input: AuthenticateMember.Input;
   let sut: AuthenticateUseCase;
-  let memberRepo: jest.Mocked<AuthenticateMember & GetMember>;
+  let memberRepo: jest.Mocked<GetMember>;
   let passwordHasher: jest.Mocked<ComparePassword>;
 
   beforeAll(() => {
@@ -14,7 +14,6 @@ describe("AUTHENTICATE", () => {
       password: "any_password",
     };
     memberRepo = {
-      authenticate: jest.fn(),
       getByEmail: jest.fn().mockResolvedValue({
         id: "any_id",
         name: "any_name",

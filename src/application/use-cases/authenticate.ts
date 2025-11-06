@@ -1,9 +1,9 @@
-import { ComparePassword, HashPassword } from "@/domain/contracts/gateways";
+import { ComparePassword } from "@/domain/contracts/gateways";
 import { AuthenticateMember, GetMember } from "@/domain/contracts/repos";
 
 export class AuthenticateUseCase {
   constructor(
-    private readonly memberRepo: AuthenticateMember & GetMember,
+    private readonly memberRepo: GetMember,
     private readonly passwordHasher: ComparePassword,
   ) {}
   async execute(
