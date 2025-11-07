@@ -9,6 +9,9 @@
     "test:e2e": "jest --config jest-e2e.config.js tests/http",
     "test:coverage": "jest --coverage tests/application & jest --coverage tests/infra"
   },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
