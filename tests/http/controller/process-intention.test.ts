@@ -1,7 +1,31 @@
 import request from "supertest";
 import { app } from "@/app";
+import { db } from "@/lib/prisma";
 
 describe("PROCESS INTENTION", () => {
+  let token: string;
+
+  beforeAll(async () => {
+    await request(app).post("/members").send({
+      name: "admin",
+      email: "admin@example.com",
+      password: "admin123",
+    });
+    await db.member.update({
+      where: {
+        email: "admin@example.com",
+      },
+      data: {
+        role: "ADMIN",
+      },
+    });
+    const response = await request(app).post("/sessions").send({
+      email: "admin@example.com",
+      password: "admin123",
+    });
+    token = response.body.token;
+  });
+
   it("should process intention successfully", async () => {
     await request(app).post("/applications").send({
       name: "any_name",
@@ -16,9 +40,13 @@ describe("PROCESS INTENTION", () => {
         id: 1,
         status: "approved",
       })
+      .set("Authorization", `Bearer ${token}`)
       .expect(200);
 
-    const response = await request(app).get("/admin/applications");
+    const response = await request(app)
+      .get("/admin/applications")
+      .set("Authorization", `Bearer ${token}`);
+
     expect(response.body).toEqual([
       {
         id: 1,
@@ -40,6 +68,7 @@ describe("PROCESS INTENTION", () => {
         id: 10,
         status: "approved",
       })
+      .set("Authorization", `Bearer ${token}`)
       .expect(404);
   });
 });

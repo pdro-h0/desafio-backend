@@ -11,13 +11,15 @@ content-type: application/json
 ###
 
 GET http://{{baseURL}}/admin/applications
+Authorization: Bearer {{tokenMember}}
 ###
 
 PUT http://{{baseURL}}/admin/applications/status
 content-type: application/json
+Authorization: Bearer {{tokenMember}}
 
 {
-  "id": 10,
+  "id": 1,
   "status": "rejected"
 }
 ###
@@ -37,8 +39,8 @@ POST http://{{baseURL}}/sessions
 content-type: application/json
 
 {
-  "email": "joao.silva@exemplo.com.br",
-  "password": "1234567"
+  "email": "admin@example.com",
+  "password": "admin123"
 }
 ###
 @tokenMember = {{loginMember.response.body.token}}

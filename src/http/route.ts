@@ -6,6 +6,7 @@ import {
   registerIntention,
   registerMember,
 } from "./controller";
+import { ensureAuthenticated, ensureRole } from "./middleware";
 
 export const router = Router();
 
@@ -13,8 +14,18 @@ export const router = Router();
 router.post("/applications", registerIntention);
 
 //Admin
-router.get("/admin/applications", fetchIntention);
-router.put("/admin/applications/status", processIntention);
+router.get(
+  "/admin/applications",
+  ensureAuthenticated,
+  ensureRole("ADMIN"),
+  fetchIntention,
+);
+router.put(
+  "/admin/applications/status",
+  ensureAuthenticated,
+  ensureRole("ADMIN"),
+  processIntention,
+);
 
 //Members
 router.post("/members", registerMember);
