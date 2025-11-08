@@ -1,25 +1,24 @@
 import request from "supertest";
+import TestAgent from "supertest/lib/agent";
 import { app } from "@/app";
 
 describe("AUTHENTICATE", () => {
-  it("should authenticate an member successfully", async () => {
+  let agent: TestAgent;
+  beforeAll(async () => {
+    agent = request.agent(app);
     await request(app).post("/members").send({
       name: "any_name",
       email: "any_email@example.com",
       password: "any_password",
     });
 
-    const response = await request(app)
+    await agent
       .post("/sessions")
       .send({
         email: "any_email@example.com",
         password: "any_password",
       })
       .expect(200);
-
-    expect(response.body).toEqual({
-      token: expect.any(String),
-    });
   });
 
   it("should not authenticate an member with invalid credentials", async () => {

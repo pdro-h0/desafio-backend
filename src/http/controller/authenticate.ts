@@ -15,7 +15,7 @@ export const authenticateMember: RequestHandler = async (req, res) => {
   const { email, password } = authenticateSchema.parse(req.body);
   const authenticateUseCase = new AuthenticateUseCase(
     new PrismaMemberRepository(),
-    new BcryptHandler(),
+    new BcryptHandler()
   );
   const { member } = await authenticateUseCase.execute({ email, password });
   const payload = {
@@ -25,5 +25,13 @@ export const authenticateMember: RequestHandler = async (req, res) => {
   const token = jwt.sign(payload, env.JWT_SECRET, {
     expiresIn: "1d",
   });
-  return res.status(200).send({ token });
+  return res
+    .status(200)
+    .cookie("token", token, {
+      path: "/",
+      secure: false,
+      sameSite: "lax",
+      httpOnly: true,
+    })
+    .end();
 };

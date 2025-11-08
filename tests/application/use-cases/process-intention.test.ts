@@ -22,6 +22,7 @@ describe("PROCESS INTENTION", () => {
         createdAt: new Date("2025-11-04T23:52:16.166Z"),
         updatedAt: new Date("2025-11-04T23:52:16.166Z"),
       }),
+      getByEmail: jest.fn(),
     };
     tokenGenerator = {
       generate: jest.fn().mockResolvedValue("any_token"),
@@ -39,7 +40,7 @@ describe("PROCESS INTENTION", () => {
     sut = new ProcessIntentionUseCase(
       intentionRepo,
       tokenGenerator,
-      emailSender,
+      emailSender
     );
   });
 
@@ -92,7 +93,7 @@ describe("PROCESS INTENTION", () => {
   it("Should throw error if GetIntention returns null", async () => {
     intentionRepo.getById.mockResolvedValueOnce(null);
     await expect(sut.execute(input.id, input.status)).rejects.toThrow(
-      "Intention not found",
+      "Intention not found"
     );
   });
 });

@@ -1,11 +1,13 @@
 import request from "supertest";
+import TestAgent from "supertest/lib/agent";
 import { app } from "@/app";
 import { db } from "@/lib/prisma";
 
 describe("PROCESS INTENTION", () => {
-  let token: string;
+  let agent: TestAgent;
 
   beforeAll(async () => {
+    agent = request.agent(app);
     await request(app).post("/members").send({
       name: "admin",
       email: "admin@example.com",
@@ -19,11 +21,15 @@ describe("PROCESS INTENTION", () => {
         role: "ADMIN",
       },
     });
-    const response = await request(app).post("/sessions").send({
+
+    await agent.post("/sessions").send({
       email: "admin@example.com",
       password: "admin123",
     });
-    token = response.body.token;
+  });
+
+  afterAll(async () => {
+    await db.$disconnect();
   });
 
   it("should process intention successfully", async () => {
@@ -34,18 +40,16 @@ describe("PROCESS INTENTION", () => {
       text: "any_text",
     });
 
-    await request(app)
+    await agent
       .put("/admin/applications/status")
       .send({
         id: 1,
         status: "approved",
       })
-      .set("Authorization", `Bearer ${token}`)
+      .withCredentials()
       .expect(200);
 
-    const response = await request(app)
-      .get("/admin/applications")
-      .set("Authorization", `Bearer ${token}`);
+    const response = await agent.get("/admin/applications").withCredentials();
 
     expect(response.body).toEqual([
       {
@@ -62,13 +66,13 @@ describe("PROCESS INTENTION", () => {
   }, 6000);
 
   it("Should return null when id is not found", async () => {
-    await request(app)
+    await agent
       .put("/admin/applications/status")
       .send({
         id: 10,
         status: "approved",
       })
-      .set("Authorization", `Bearer ${token}`)
+      .withCredentials()
       .expect(404);
   });
 });

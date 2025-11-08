@@ -1,10 +1,12 @@
 import request from "supertest";
+import TestAgent from "supertest/lib/agent";
 import { app } from "@/app";
 import { db } from "@/lib/prisma";
 
 describe("FETCH INTENTION", () => {
-  let token: string;
+  let agent: TestAgent;
   beforeAll(async () => {
+    agent = request.agent(app);
     await request(app).post("/members").send({
       name: "admin",
       email: "admin@example.com",
@@ -18,11 +20,10 @@ describe("FETCH INTENTION", () => {
         role: "ADMIN",
       },
     });
-    const response = await request(app).post("/sessions").send({
+    await agent.post("/sessions").send({
       email: "admin@example.com",
       password: "admin123",
     });
-    token = response.body.token;
   });
 
   afterAll(async () => {
@@ -37,10 +38,7 @@ describe("FETCH INTENTION", () => {
       text: "any_text",
     });
 
-    const response = await request(app)
-      .get("/admin/applications")
-      .set("Authorization", `Bearer ${token}`)
-      .expect(200);
+    const response = await agent.get("/admin/applications").withCredentials();
     expect(response.body).toEqual([
       {
         id: 1,

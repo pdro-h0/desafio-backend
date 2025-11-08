@@ -11,14 +11,19 @@ interface JwtPayload {
 export const ensureAuthenticated = (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  const authHeader = req.headers?.authorization;
+  const cookiesToken = req.cookies?.token;
+  if (authHeader && !authHeader?.startsWith("Bearer ")) {
     res.status(401).json({ message: "Unauthorized" });
     return;
   }
-  const token = authHeader.split(" ")[1];
+  const token = cookiesToken || authHeader?.split(" ")[1];
+  if (!token) {
+    res.status(401).json({ message: "Unauthorized" });
+    return;
+  }
   try {
     const decoded = jwt.verify(token, env.JWT_SECRET) as JwtPayload;
     decoded.role === "MEMBER"
