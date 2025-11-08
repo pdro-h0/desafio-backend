@@ -18,11 +18,15 @@ export interface FetchIntention {
 }
 
 export interface GetIntention {
-  getById(input: GetIntention.Input): Promise<Intention | null>;
+  getById(input: GetIntention.InputById): Promise<Intention | null>;
+  getByEmail(input: GetIntention.InputByEmail): Promise<Intention | null>;
 }
 export namespace GetIntention {
-  export type Input = {
+  export type InputById = {
     id: number;
+  };
+  export type InputByEmail = {
+    email: string;
   };
 }
 

@@ -13,4 +13,22 @@ describe("REGISTER INTENTION", () => {
       })
       .expect(201);
   });
+  it("should return 409 if email already exists", async () => {
+    await request(app).post("/applications").send({
+      name: "any_name",
+      email: "duplicated_email@example.com",
+      companyName: "any_company_name",
+      text: "any_text",
+    });
+
+    await request(app)
+      .post("/applications")
+      .send({
+        name: "any_name",
+        email: "duplicated_email@example.com",
+        companyName: "any_company_name",
+        text: "any_text",
+      })
+      .expect(409);
+  });
 });

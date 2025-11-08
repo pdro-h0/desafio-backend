@@ -16,10 +16,19 @@ export class PrismaIntentionRepository
   async fetch(): Promise<Intention[]> {
     return await db.intentionRequest.findMany();
   }
-  async getById(input: GetIntention.Input): Promise<Intention | null> {
+  async getById(input: GetIntention.InputById): Promise<Intention | null> {
     return (
       (await db.intentionRequest.findUnique({ where: { id: input.id } })) ??
       null
+    );
+  }
+  async getByEmail(
+    input: GetIntention.InputByEmail
+  ): Promise<Intention | null> {
+    return (
+      (await db.intentionRequest.findUnique({
+        where: { email: input.email },
+      })) ?? null
     );
   }
   async process(input: ProcessIntention.Input): Promise<Intention> {
