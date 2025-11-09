@@ -9,5 +9,6 @@ const envSchema = z.object({
   PORT: z.coerce.number().default(3333),
   JWT_SECRET: z.string(),
   MEMBER_SECRET: z.string(),
+  WEB_URL: z.url(),
 });
 export const env = envSchema.parse(process.env);

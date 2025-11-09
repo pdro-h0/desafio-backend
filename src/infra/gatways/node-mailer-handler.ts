@@ -38,7 +38,7 @@ export class NodeMailerHandler implements SendEmail {
       subject: "Intenção aceita!",
       html: `
       <div style="font-family: sans-serif; font-size: 16px; line-height: 1.6;">
-      <p>Olá ${receiverName}, sua intenção foi aceita! para acessar a pagina de login para membros, use o seguinte token: ${token}
+      <p>Olá ${receiverName}, sua intenção foi aceita! para acessar a pagina de login para membros, use o link: <a href="${env.WEB_URL}?token=${token}">${env.WEB_URL}?token=${token}</a>
       </p>
       </div>`.trim(),
     });
