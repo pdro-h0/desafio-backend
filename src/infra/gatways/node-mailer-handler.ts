@@ -15,13 +15,13 @@ export class NodeMailerHandler implements SendEmail {
         mail,
         token,
         intentionReQuesterName,
-        intentionReQuesterEmail,
+        intentionReQuesterEmail
       );
     } else {
       await this.generateRejectedEmail(
         mail,
         intentionReQuesterName,
-        intentionReQuesterEmail,
+        intentionReQuesterEmail
       );
     }
   }
@@ -30,7 +30,7 @@ export class NodeMailerHandler implements SendEmail {
     mail: Transporter,
     token: string,
     receiverName: string,
-    receiverEmail: string,
+    receiverEmail: string
   ): Promise<void> {
     const message = await mail.sendMail({
       from: "any_company <no-reply@fila.com>",
@@ -38,7 +38,7 @@ export class NodeMailerHandler implements SendEmail {
       subject: "Intenção aceita!",
       html: `
       <div style="font-family: sans-serif; font-size: 16px; line-height: 1.6;">
-      <p>Olá ${receiverName}, sua intenção foi aceita!
+      <p>Olá ${receiverName}, sua intenção foi aceita! para acessar a pagina de login para membros, use o seguinte token: ${token}
       </p>
       </div>`.trim(),
     });
@@ -49,7 +49,7 @@ export class NodeMailerHandler implements SendEmail {
   private async generateRejectedEmail(
     mail: Transporter,
     receiverName: string,
-    receiverEmail: string,
+    receiverEmail: string
   ): Promise<void> {
     const message = await mail.sendMail({
       from: "any_company <no-reply@fila.com>",

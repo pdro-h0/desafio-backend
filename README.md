@@ -41,6 +41,7 @@ Para rodar o backend, você vai precisar adicionar as seguintes variáveis de am
 - `PORT=` (por padrão esta na 3333)
 - `DATABASE_URL="postgresql://[POSTGRESQL_USERNAME]:[POSTGRESQL_PASSWORD]@localhost:5432/[POSTGRESQL_DATABASE]?schema=public"`
 - `JWT_SECRET=`
+- `MEMBER_SECRET=`
 
 E para rodar os testes, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env.testing
 
